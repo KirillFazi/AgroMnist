@@ -1,0 +1,4 @@
+outs:
+- md5: d2cf08b5fe8f9601949ea72bd4e70c2c
+  size: 95040273
+  path: MNIST-120k
