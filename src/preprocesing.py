@@ -1,7 +1,7 @@
 import pandas as pd
 
-train_data = pd.read_csv('data/raw/mnist_train.csv')
-test_data = pd.read_csv('data/raw/mnist_test.csv')
+train_data = pd.read_csv('../data/raw/mnist_train.csv')
+test_data = pd.read_csv('../data/raw/mnist_test.csv')
 
 X_train = train_data.drop('label', axis=1)
 y_train = train_data['label']
@@ -16,3 +16,9 @@ X_test.to_csv('data/processed/X_test.csv', index=False)
 y_test.to_csv('data/processed/y_test.csv', index=False)
 
 
+"""dvc stage add -n prepare \
+                 -p prepare.seed,prepare.split \
+                -d src/prepare.py -d data/data.xml \
+                 -o data/prepared \
+                python src/prepare.py data/data.xml
+"""
