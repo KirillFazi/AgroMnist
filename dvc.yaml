@@ -9,3 +9,15 @@ stages:
     - preprocess.split
     outs:
     - data/processed
+  train:
+      cmd: python src/train.py data/processed models/model.h5
+      deps:
+      - src/train.py
+      - data/processed
+      params:
+      - train.epochs
+      - train.lr
+      - train.batch_size
+      outs:
+      - models/model.h5
+

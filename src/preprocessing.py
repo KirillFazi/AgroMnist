@@ -27,7 +27,11 @@ test_data = pd.read_csv(os.path.join(input_dir, "mnist_test.csv"))
 X_train = train_data.drop('label', axis=1)
 y_train = train_data['label']
 
-X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=split, random_state=random_seed)
+X_train, X_val, y_train, y_val = train_test_split(
+    X_train, y_train,
+    test_size=split,
+    random_state=random_seed,
+    stratify=y_train)
 
 X_test = test_data.drop('label', axis=1)
 y_test = test_data['label']
