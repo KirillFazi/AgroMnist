@@ -20,4 +20,11 @@ stages:
       - train.batch_size
       outs:
       - models/model.h5
+  evaluate:
+      cmd: python src/evaluate.py models/model.h5
+      deps:
+      - src/evaluate.py
+      - models/model.h5
+      metrics:
+      - metrics/metrics.json
 
