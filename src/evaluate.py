@@ -1,4 +1,5 @@
 import os
+import sys
 
 import json
 import yaml
@@ -9,6 +10,15 @@ from keras.utils import to_categorical
 from keras.models import load_model
 
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+
+if len(sys.argv) != 2:
+    sys.stderr.write("Arguments error. Usage:\n")
+    sys.stderr.write("\tpython preprocess.py data-file\n")
+    sys.exit(1)
+
+model_path = sys.argv[1]
+model = load_model(model_path)
+
 params = yaml.safe_load(open('params.yaml'))['evaluate']
 
 num_classes = params['num_classes']
@@ -20,8 +30,6 @@ X_test = pd.read_csv(os.path.join(data_dir, 'X_test.csv'))
 y_test = pd.read_csv(os.path.join(data_dir, 'y_test.csv'))
 
 y_test = to_categorical(y_test, num_classes=num_classes)
-
-model = load_model(os.path.join('models', 'model.h5'))
 
 y_pred = model.predict(X_test)
 

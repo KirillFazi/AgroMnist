@@ -1,10 +1,11 @@
 import os
 import pandas as pd
+import sys
 
 import yaml
 
 from keras.models import Sequential
-from keras.layers import Dense, GlobalAveragePooling2D, Dropout
+from keras.layers import Dense, Dropout
 from keras.optimizers import Adam
 from keras.utils import to_categorical
 
@@ -15,7 +16,15 @@ batch_size = params["batch_size"]
 lr = params["lr"]
 num_classes = params["num_classes"]
 
-input_dir = os.path.join("data", "processed")
+if len(sys.argv) != 3:
+    sys.stderr.write("Arguments error. Usage:\n")
+    sys.stderr.write("\tpython preprocess.py data-file\n")
+    sys.exit(1)
+
+input_dir = sys.argv[1]
+
+output_file = sys.argv[2]
+output_dir = output_file.split("/")[0]
 
 X_train = pd.read_csv(os.path.join(input_dir, "X_train.csv"))
 y_train = pd.read_csv(os.path.join(input_dir, "y_train.csv"))
@@ -51,8 +60,8 @@ model.fit(
     validation_data=(X_val, y_val)
 )
 
-os.makedirs("models", exist_ok=True)
-model.save(os.path.join("models", "model.h5"))
+os.makedirs(output_dir, exist_ok=True)
+model.save(output_file)
 
 
 

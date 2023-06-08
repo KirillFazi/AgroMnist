@@ -4,12 +4,12 @@ stages:
     cmd: python src/preprocessing.py data/raw
     deps:
     - path: data/raw
-      md5: bb702100a5ef4ef1035508ad9076a822.dir
-      size: 127943851
-      nfiles: 2
+      md5: 188215b4845397334d4f0ede223dd223.dir
+      size: 143914447
+      nfiles: 3
     - path: src/preprocessing.py
-      md5: 5e621c50e1ea73f5fa37463155f1ba17
-      size: 1623
+      md5: 7e2a8563ae68de37d208d5867f717f60
+      size: 1607
     params:
       params.yaml:
         preprocess.seed: 42
@@ -27,8 +27,8 @@ stages:
       size: 128018061
       nfiles: 6
     - path: src/train.py
-      md5: 2fdccc204f04e6fea160cc0087dc305c
-      size: 1467
+      md5: db0b5427c996731ff45b12a1c8fe9078
+      size: 1635
     params:
       params.yaml:
         train.batch_size: 32
@@ -36,18 +36,18 @@ stages:
         train.lr: 1e-05
     outs:
     - path: models/model.h5
-      md5: 238b77775f6657ba407aa39a7cf25b1b
+      md5: 5fb904253cd6aad9f41ab8a6526dee98
       size: 6855128
   evaluate:
     cmd: python src/evaluate.py models/model.h5
     deps:
     - path: models/model.h5
-      md5: 238b77775f6657ba407aa39a7cf25b1b
+      md5: 5fb904253cd6aad9f41ab8a6526dee98
       size: 6855128
     - path: src/evaluate.py
-      md5: 794a5e5ffcaeab80f25b476a7a860209
-      size: 1183
+      md5: 850d58b11796df441ae4f815fd19468e
+      size: 1353
     outs:
     - path: metrics/metrics.json
-      md5: 961c0a52b8c825f22c1314d5bc9068a4
-      size: 109
+      md5: 4e9ca7527fc9261faab31d0ae020e351
+      size: 108

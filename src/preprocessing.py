@@ -13,10 +13,10 @@ if len(sys.argv) != 2:
     sys.stderr.write("\tpython preprocess.py data-file\n")
     sys.exit(1)
 
+input_dir = sys.argv[1]
+
 split = params["split"]
 random_seed = params["seed"]
-
-input_dir = os.path.join("data", "raw")
 
 output_dir = os.path.join("data", "processed")
 os.makedirs(output_dir, exist_ok=True)
