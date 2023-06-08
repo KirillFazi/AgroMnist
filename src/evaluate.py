@@ -38,9 +38,9 @@ y_test = np.argmax(y_test, axis=1)
 
 metrics_results = {
     'accuracy': accuracy_score(y_test, y_pred),
-    'precision': precision_score(y_test, y_pred, average='macro'),
-    'recall': recall_score(y_test, y_pred, average='macro'),
-    'f1': f1_score(y_test, y_pred, average='macro')
+    'precision': precision_score(y_test, y_pred, average='weighted'),
+    'recall': recall_score(y_test, y_pred, average='weighted'),
+    'f1': f1_score(y_test, y_pred, average='weighted')
 }
 
 os.makedirs('metrics', exist_ok=True)
