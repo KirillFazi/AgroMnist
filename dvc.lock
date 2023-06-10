@@ -32,22 +32,22 @@ stages:
     params:
       params.yaml:
         train.batch_size: 32
-        train.epochs: 10
-        train.lr: 1e-05
+        train.epochs: 15
+        train.lr: 0.001
     outs:
     - path: models/model.h5
-      md5: 5fb904253cd6aad9f41ab8a6526dee98
+      md5: f4765745397485061f4bdb2b4d5ab29f
       size: 6855128
   evaluate:
     cmd: python src/evaluate.py models/model.h5
     deps:
     - path: models/model.h5
-      md5: 5fb904253cd6aad9f41ab8a6526dee98
+      md5: f4765745397485061f4bdb2b4d5ab29f
       size: 6855128
     - path: src/evaluate.py
       md5: 2081d65a40ff4c1b0eb9476dafd8c025
       size: 1362
     outs:
     - path: metrics/metrics.json
-      md5: 3d5259cf0968a5507b28db302e74b876
+      md5: bc2a27fb83822c7be06e0517f05739d3
       size: 97
