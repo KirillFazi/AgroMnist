@@ -4,9 +4,9 @@ stages:
     cmd: python src/preprocessing.py data/raw
     deps:
     - path: data/raw
-      md5: 188215b4845397334d4f0ede223dd223.dir
-      size: 143914447
-      nfiles: 3
+      md5: bb702100a5ef4ef1035508ad9076a822.dir
+      size: 127943851
+      nfiles: 2
     - path: src/preprocessing.py
       md5: 7e2a8563ae68de37d208d5867f717f60
       size: 1607
