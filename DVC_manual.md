@@ -112,14 +112,64 @@ dvc repro
 Ссылка на официальную документацию по воспроизведению 
 этапов DVC: https://dvc.org/doc/command-reference/repro
 
-## Шаг 6: Сотрудничество и контроль версий с DVC (необязательно)
-1. Если вы интегрировали DVC с Git'ом в Шаге 3, 
-то теперь вы можете перенести свой проект в Git-репозиторий с помощью обычных команд Git'а. 
-DVC будет обрабатывать версионирование больших файлов ML и 
-управлять зависимостями данных и файлов модели отдельно.
-2. Для отслеживания изменений и отправки обновлений в файлы, управляемые DVC, 
-вы можете использовать такие команды Git, как `git add`, `git commit` и `git push`. 
-DVC позаботится об отслеживании и хранении базовых файлов данных.
+## Шаг 6: Совместная работа и контроль версий с помощью DVC и Git
+1. DVC и Git могут работать вместе, чтобы обеспечить контроль версий для вашего ML-проекта.
+2. По умолчанию DVC управляет файлами данных и файлами модели, а Git отслеживает код и файлы конфигурации (.dvc файлы).
+3. Для того чтобы корректно взаимодействовать с Git и DVC после редактирования проекта, выполните следующие действия:
+
+Пример изменения кода или данных:
+
+a. Внести изменения в код или данные:
+- Внесите необходимые изменения в код или данные.
+
+b. Зафиксируйте изменения в Git:
+- Откройте терминал и перейдите в каталог проекта ML.
+- Используйте команды Git для постановки и фиксации изменений кода, например:
+```bash
+git add <filename>
+git commit -m "Commit message"
+```
+
+c. Зафиксируйте изменения в DVC:
+- Выполните следующую команду для обновления DVC и отслеживания изменений кода:
+```bash
+dvc commit <filename>
+```
+
+d. Передача изменений в удаленные репозитории:
+- Чтобы перенести изменения кода в удаленный Git-репозиторий, используйте следующую команду:
+```bash
+git push
+```
+- Чтобы перенести изменения DVC и синхронизировать их с удаленным хранилищем DVC, используйте следующую команду:
+```
+dvc push
+```
+
+e. Получение изменений из удаленных репозиториев:
+- Чтобы получить изменения кода из удаленного Git-репозитория, используйте следующую команду:
+```bash
+git pull
+```
+- Чтобы получить изменения DVC из удаленного хранилища DVC, используйте следующую команду:
+```bash
+dvc pull
+```
+
+f. Запуск DVC pipelines:
+- Чтобы запустить DVC pipelines, используйте следующую команду:
+```bash
+dvc repro
+```
+- После этого нужно повторить шаги b - e. Это желательный сценарий использования,
+который позволяет вам получать изменения из удаленных репозиториев и запускать DVC pipelines так, чтобы было легко 
+отслеживать изменения и возвращаться к предыдущим версиям.
+Но вы можете использовать DVC и Git по-разному, в зависимости от ваших потребностей.
+
+Ссылка на официальную документацию DVC на команды для работы с 
+DVC и Git: https://dvc.org/doc/command-reference
+
+
 
 ## Заключение
 Поздравляем! Вы успешно установили и внедрили систему DVC в свой ML-проект. 
@@ -247,14 +297,61 @@ dvc repro
 ```
 This command will execute the defined stages and ensure that the outputs are up-to-date.
 
-## Step 6: Collaborate and version control with DVC (optional)
-1. If you integrated DVC with Git in Step 3, 
-you can now push your project to a Git repository using regular Git commands. 
-DVC will handle the versioning of large ML files and manage their data and model file 
-dependencies separately.
-2. To track changes and push updates to your DVC-managed files, you can use Git commands 
-like `git add`, `git commit`, and `git push`. DVC will handle the tracking and storage of 
-the underlying data files.
+## Step 6: Collaboration and version control using DVC and Git
+1. DVC and Git can work together to provide version control for your ML project.
+2. By default, DVC manages data files and model files, and Git tracks code and configuration files (.dvc files).
+3. To interact correctly with Git and DVC after editing your project, follow these steps:
+
+Example code or data changes:
+
+a. Make changes to the code or data:
+- Make the necessary changes to the code or data.
+
+b. Commit the changes to Git:
+- Open a terminal and navigate to the ML project directory.
+- Use Git commands to put and commit code changes, for example:
+```bash
+git add <filename>
+git commit -m "Commit message"
+```
+
+c. Commit changes to the DVC:
+- Run the following command to update DVC and track code changes:
+```bash
+dvc commit <filename>
+```
+
+d. Transferring changes to remote repositories:
+- To transfer code changes to a remote Git repository, use the following command:
+```bash
+  git push
+```
+- To push DVC changes and synchronize them with the remote DVC repository, use the following command:
+```bash
+dvc push
+```
+
+e. Retrieve changes from remote repositories:
+- To retrieve code changes from a remote Git repository, use the following command:
+```bash
+git pull
+```
+- To retrieve DVC changes from a remote DVC repository, use the following command:
+```bash
+dvc pull
+```
+
+f. Start DVC pipelines:
+- To start DVC pipelines, use the following command:
+```bash
+dvc repro
+```
+- After that you have to repeat steps b - e. This is a desirable use case,
+which allows you to get changes from remote repositories and run DVC.
+But you can use DVC and Git differently depending on your needs.
+
+The link to the official DVC documentation for commands to work with 
+DVC and Git: https://dvc.org/doc/command-reference
 
 ## Conclusion
 Congratulations! You have successfully installed and implemented the DVC system in your ML project. 
