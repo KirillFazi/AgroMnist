@@ -164,7 +164,7 @@ DVC позаботится об отслеживании и хранении б�
   в удаленном хранилище. Он содержит метаданные, такие как контрольная сумма файла, 
   размер файла и информация о местоположении удаленного хранилища.
   - Каталог .dvc/cache: Этот каталог содержит фактические файлы данных (или куски), 
-  хранящиеся с возможностью адресации по содержимому. Файлы данных именуются на основе контрольной суммы их содержимого для обеспечения уникальности.
+  хранящиеся с возможностью адресации по-содержимому. Файлы данных именуются на основе контрольной суммы их содержимого для обеспечения уникальности.
 - Дедупликация данных: DVC использует хранилище с возможностью адресации содержимого 
 и методы дедупликации, чтобы избежать хранения дубликатов данных. Когда вы добавляете файл или 
 каталог в DVC с помощью dvc add, он вычисляет контрольную сумму (обычно хэш MD5 или SHA256) данных. 
@@ -268,3 +268,47 @@ for more advanced features and configuration options.
 2. DVC repository on GitHub: https://github.com/KirillFazi/AgroMnist
 3. YouTube video tutorial: https://www.youtube.com/watch?v=kLKBcPonMYw&list=PL7WG7YrwYcnDb0qdPl9-KEStsL-3oaEjg
 4. official DVC documentation: https://dvc.org/doc
+
+## Notes
+1. About how DVC works with data.
+- DVC stores the data in a separate folder `.dvc/cache`.
+- The first time you run the command `dvc repro`.
+  DVC downloads data from the remote storage to a folder `.dvc/cache`.
+- On subsequent runs of `dvc repro`.
+  DVC uses the data from the `.dvc/cache` folder.
+- On running the `dvc push` command DVC sends data from the `.dvc/cache` folder
+  to the remote storage.
+- When you run the command `dvc pull` DVC downloads data from the remote storage
+  to the `.dvc/cache` folder.
+- When executing `dvc checkout` command DVC deletes data from `.dvc/cache` folder
+  and downloads data from the remote storage to the `.dvc/cache` folder.
+- When running the `dvc gc` command DVC deletes data from the `.dvc/cache` folder,
+  that are not used in the current project.
+- When you run the command `dvc destroy` DVC deletes data from the `.dvc/cache` folder
+  and deletes the `.dvc` files from the project.
+- When you run the command `dvc remove` DVC deletes data from the `.dvc/cache` folder
+  and removes files `.dvc` from the project.
+2. How DVC stores data
+- When DVC stores data in the remote storage it uses a combination of
+  file organization and data deduplication methods to optimize storage and minimize duplication.
+  Here's how DVC handles data storage:
+  File organization: DVC organizes data in remote storage using a file structure,
+  which includes the following components:
+    - A .dvc file: This file is created in the project directory and serves as a pointer to the actual data file
+      in the remote repository. It contains metadata such as file checksum,
+      file size, and information about the location of the remote repository.
+    - .dvc/cache directory: This directory contains the actual data files (or chunks),
+      stored with content-addressable capabilities. The data files are named based on the checksum of their contents to ensure uniqueness.
+- Data deduplication: DVC uses content-addressable storage
+  and deduplication methods to avoid storing duplicate data. When you add a file or
+  directory to DVC using dvc add, it calculates a checksum (usually an MD5 or SHA256 hash) of the data.
+  If the same data is already in the cache, DVC recognizes it based on the checksum and
+  avoids duplicating them. Instead, it creates a hard reference or reference
+  to an existing data file in cache.
+
+- Compression: By default, DVC does not automatically compress data.
+  It stores the data as is in the cache and remote storage.
+  However, you can enable compression manually by compressing data files before adding them to DVC.
+  DVC will store and transmit the compressed files.
+
+
